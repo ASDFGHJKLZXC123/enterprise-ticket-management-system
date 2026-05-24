@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: enterprise-ticket-management
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/tickets}
+    username: ${SPRING_DATASOURCE_USERNAME:tickets}
+    password: ${SPRING_DATASOURCE_PASSWORD:tickets}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+    open-in-view: false
+  flyway:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:change-me-to-a-long-local-development-secret-32chars}
+    expiration-minutes: ${JWT_EXPIRATION_MINUTES:720}
+  cors:
+    allowed-origins: ${FRONTEND_ORIGINS:http://localhost:5173,http://localhost:3000}
+  seed:
+    enabled: ${APP_SEED_ENABLED:true}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+

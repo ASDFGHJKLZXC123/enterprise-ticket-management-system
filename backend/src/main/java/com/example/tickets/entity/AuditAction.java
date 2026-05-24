@@ -1,0 +1,15 @@
+package com.example.tickets.entity;
+
+public enum AuditAction {
+    TICKET_CREATED,
+    TICKET_ASSIGNED,
+    STATUS_CHANGED,
+    PRIORITY_CHANGED,
+    COMMENT_ADDED,
+    TICKET_CLOSED,
+    TICKET_REOPENED,
+    USER_DEACTIVATED,
+    USER_REACTIVATED,
+    USER_ROLE_CHANGED
+}
+
