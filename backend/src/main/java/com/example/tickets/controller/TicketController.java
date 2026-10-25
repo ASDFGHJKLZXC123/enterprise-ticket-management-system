@@ -10,6 +10,7 @@ import com.example.tickets.dto.TicketResponse;
 import com.example.tickets.dto.UpdateTicketRequest;
 import com.example.tickets.entity.TicketPriority;
 import com.example.tickets.entity.TicketStatus;
+import com.example.tickets.exception.BadRequestException;
 import com.example.tickets.security.CurrentUser;
 import com.example.tickets.service.TicketService;
 import jakarta.validation.Valid;
@@ -61,6 +62,12 @@ public class TicketController {
         @RequestParam(defaultValue = "0") int page,
         @RequestParam(defaultValue = "20") int size
     ) {
+        if (page < 0) {
+            throw new BadRequestException("page must be greater than or equal to 0");
+        }
+        if (size < 1) {
+            throw new BadRequestException("size must be greater than 0");
+        }
         Pageable pageable = PageRequest.of(page, Math.min(size, 100), Sort.by(Sort.Direction.DESC, "createdAt"));
         return ticketService.listTickets(currentUser.get(), status, priority, assigneeId, requesterId, createdAfter, createdBefore, search, pageable);
     }
